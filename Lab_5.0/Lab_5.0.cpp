@@ -21,11 +21,14 @@ int main()
     SetConsoleOutputCP(1251);
 
     int cols, rows;
+    string tipe;
 
     cout << "Введите количество строк:";
     cin >> rows;
     cout << "Введите колличество столбцов:";
     cin >> cols;
+    cout << "Введите тип ввода(случайно, вручную)";
+    cin >> tipe;
 
     int** arr = new int*[rows];
 
@@ -34,14 +37,27 @@ int main()
           arr[i] = new int[cols];
     }
 
-
-    for (int i = 0; i < rows; i++)
+    if (tipe=="случайно")
     {
-        for (int j = 0; j < cols; j++)
+        for (int i = 0; i < rows; i++)
         {
-            arr[i][j] = rand() % 20;
+            for (int j = 0; j < cols; j++)
+            {
+                arr[i][j] = rand() % 20;
+            }
         }
     }
+    else
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                cin >> arr[i][j];
+            }
+        }
+    }
+    
 
     for (int i = 0; i < rows; i++)
     {
