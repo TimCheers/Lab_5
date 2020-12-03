@@ -4,14 +4,41 @@
 
 using namespace std;
 
-/*
-*Используя функции, решить задачу.
-Массив должен передоваться в функцию как параметр.
+//
+//*Используя функции, решить задачу.
+//*Массив должен передоваться в функцию как параметр.
+//*
+//*В двумерном массиве найти среднее арефметичкое первого столбца и
+//*колличество элементов в кождом из следующих столбцов, превышающих
+//*среднее арефметическое предыдущего стобца.
 
-В двумерном массиве найти среднее арефметичкое первого столбца и
-колличество элементов в кождом из следующих столбцов, превышающих
-среднее арефметическое предыдущего стобца.
-*/
+
+float average(float **arr, int rows, int order)
+{
+    float Sum=0;
+    float Aref = 0;
+    for (int i = 0; i < rows; i++)
+    {
+        Sum+= arr[i][order-1];
+    }
+    Aref = Sum / rows;
+    return Aref;
+}
+
+float Quantity(float** arr, int rows, int order)
+{
+    int k = 0;
+    float Aref = average(arr, rows-1, order);
+    for (int i = 0; i < rows; i++)
+    {
+        if (arr[i][order]>Aref)
+        {
+            k++;
+        }
+    }
+    
+    return k;
+}
 
 int main()
 {
@@ -20,7 +47,8 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    int cols, rows;
+    int cols, rows, order, quantity,k;
+    float aref;
     string tipe;
 
     cout << "Введите количество строк:";
@@ -30,11 +58,11 @@ int main()
     cout << "Введите тип ввода(случайно, вручную)";
     cin >> tipe;
 
-    int** arr = new int*[rows];
+    float** arr = new float*[rows];
 
     for (int i = 0; i < rows; i++)
     {
-          arr[i] = new int[cols];
+          arr[i] = new float[cols];
     }
 
     if (tipe=="случайно")
@@ -58,7 +86,7 @@ int main()
         }
     }
     
-
+    cout << endl<<endl;
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
@@ -68,6 +96,16 @@ int main()
         cout << endl;
     }
 
+    cout << endl << average(arr, rows, 1);
+
+    cout << "\t";
+    for (int i = 1; i <= cols - 1; i++)
+    {
+        cout << Quantity(arr, rows, i)<<"\t";
+    }
+   
+
+    
 
 
 
