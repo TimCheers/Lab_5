@@ -5,12 +5,12 @@
 using namespace std;
 
 //
-//*Используя функции, решить задачу.
-//*Массив должен передоваться в функцию как параметр.
-//*
-//*В двумерном массиве найти среднее арефметичкое первого столбца и
-//*колличество элементов в кождом из следующих столбцов, превышающих
-//*среднее арефметическое предыдущего стобца.
+//Используя функции, решить задачу.
+//Массив должен передоваться в функцию как параметр.
+//
+//В двумерном массиве найти среднее арефметичкое первого столбца и
+//колличество элементов в кождом из следующих столбцов, превышающих
+//среднее арефметическое предыдущего стобца.
 
 
 float average(float **arr, int rows, int order)
@@ -28,7 +28,7 @@ float average(float **arr, int rows, int order)
 float Quantity(float** arr, int rows, int order)
 {
     int k = 0;
-    float Aref = average(arr, rows-1, order);
+    float Aref = average(arr, rows, order);
     for (int i = 0; i < rows; i++)
     {
         if (arr[i][order]>Aref)
@@ -47,23 +47,30 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    int cols, rows, order, quantity,k;
+    int cols=-1, rows=-1, order, quantity,k;
     float aref;
-    string tipe;
-
-    cout << "Введите количество строк:";
-    cin >> rows;
-    cout << "Введите колличество столбцов:";
-    cin >> cols;
-    cout << "Введите тип ввода(случайно, вручную)";
-    cin >> tipe;
+    string tipe="слово";
+    while (rows <= 0)
+    {
+        cout << "Введите количество строк:";
+        cin >> rows;
+    }
+    while (cols <= 0)
+    {
+        cout << "Введите колличество столбцов:";
+        cin >> cols;
+    }
+    while (tipe != "случайно" && tipe != "вручную")
+    {
+        cout << "Введите тип ввода(случайно, вручную)" << endl;
+        cin >> tipe;
+    }
 
     float** arr = new float*[rows];
-
     for (int i = 0; i < rows; i++)
     {
           arr[i] = new float[cols];
-    }
+    } 
 
     if (tipe=="случайно")
     {
@@ -77,6 +84,7 @@ int main()
     }
     else
     {
+        cout << "Введите массив" << endl;
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < cols; j++)
@@ -86,7 +94,7 @@ int main()
         }
     }
     
-    cout << endl<<endl;
+    cout << endl<<endl<<"Массив:"<<endl;
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
@@ -96,19 +104,15 @@ int main()
         cout << endl;
     }
 
-    cout << endl << average(arr, rows, 1);
+    cout << endl <<"Среднее арефметическое первого столбца:"<< average(arr, rows, 1)<<endl<<endl;
+    cout << "Колличество элементов в столбце, превышающих среднее арефметическое предыдущего стобца:" << endl<<endl;
 
-    cout << "\t";
     for (int i = 1; i <= cols - 1; i++)
     {
-        cout << Quantity(arr, rows, i)<<"\t";
+        cout <<"Столбец № "<<i+1<<":\t"<<Quantity(arr, rows, i)<<endl;
     }
-   
-
-    
-
-
-
+    cout << endl << endl;
+  
     for (int i = 0; i < rows; i++)
     {
         delete[]arr[i];
